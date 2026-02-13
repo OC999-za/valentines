@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hey Angel, will you be my Valentine's?</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+  .responsive-img {
+  width: 100%;
+  max-width: 450px;   /* prevents it from getting too large on desktop */
+  height: auto;       /* maintains aspect ratio */
+  display: block;
+  margin: 20px auto;
+  border-radius: 15px;
+}
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #ffecd2, #fcb69f);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      max-width: 600px;
+      width: 90%;
+      padding: 40px 35px;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      animation: fadeIn 1.2s ease;
+      position: relative;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 15px;
+    }
+
+    .buttons {
+      margin-top: 30px;
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    button {
+      border: none;
+      padding: 12px 22px;
+      border-radius: 30px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    /* YES BUTTON ANIMATION */
+    .yes {
+      background: #ff7a7a;
+      color: white;
+      box-shadow: 0 10px 20px rgba(255, 122, 122, 0.4);
+      animation: pulse 2s infinite;
+    }
+
+    .yes:hover {
+      transform: scale(1.05);
+    }
+
+    /* NO BUTTON */
+    .maybe {
+      background: #f1f1f1;
+      color: #333;
+      position: relative;
+    }
+
+    footer {
+      margin-top: 25px;
+      font-size: 0.8rem;
+      color: #777;
+    }
+
+    /* THANK YOU OVERLAY */
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.95);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      border-radius: 20px;
+      animation: fadeIn 0.6s ease;
+    }
+
+    .overlay h2 {
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 10px;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>Hey Angel, will you be my Valentine's?🌸</h1>
+
+	<img src="canva.png" alt="Valentine Image" class="responsive-img">
+
+
+    <div class="buttons">
+      <button class="yes" onclick="handleYes()">
+        Yes, I will be your Valentine's
+      </button>
+
+      <button class="maybe" id="noBtn" onclick="handleNo()">
+        Let me think about it
+      </button>
+    </div>
+
+    <footer>
+      Ko rata blin blin!
+    </footer>
+
+    <!-- THANK YOU SCREEN -->
+    <div class="overlay" id="overlay">
+      <h2>Thank you 😊</h2>
+      <p>I’m really glad you checked this out.</p>
+    </div>
+  </div>
+
+  <script>
+    const phone = "27674028051"; 
+    const overlay = document.getElementById("overlay");
+    const noBtn = document.getElementById("noBtn");
+    let moves = 0;
+
+    /* YES BUTTON HANDLER */
+    function handleYes() {
+      overlay.style.display = "flex";
+
+      setTimeout(() => {
+        sendResponse("Yes 🍦 She said yes!");
+      }, 1200);
+    }
+	
+	/* NO BUTTON HANDLER */
+    function handleNo() {
+      overlay.style.display = "flex";
+
+      setTimeout(() => {
+        sendResponse("Hade chieffffff");
+      }, 1200);
+    }
+
+    /* SEND WHATSAPP MESSAGE */
+    function sendResponse(answer) {
+      const message = encodeURIComponent(
+        `Response from the Ice Cream page:\n${answer}`
+      );
+
+      window.location.href = `https://wa.me/${phone}?text=${message}`;
+    }
+
+    /* PLAYFUL NO BUTTON (MOBILE + DESKTOP) */
+    function moveNoButton() {
+      if (moves >= 3) return;
+
+      const x = Math.random() * 120 - 60;
+      const y = Math.random() * 120 - 60;
+
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+      moves++;
+    }
+
+    noBtn.addEventListener("mouseenter", moveNoButton);   // Desktop
+    noBtn.addEventListener("pointerdown", moveNoButton);  // Mobile
+  </script>
+
+</body>
+</html>
